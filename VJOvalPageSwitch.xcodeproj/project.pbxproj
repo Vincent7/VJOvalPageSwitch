@@ -13,7 +13,9 @@
 		BF7279A01C20517100CB463E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF72799E1C20517100CB463E /* Main.storyboard */; };
 		BF7279A21C20517100CB463E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF7279A11C20517100CB463E /* Assets.xcassets */; };
 		BF7279A51C20517100CB463E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF7279A31C20517100CB463E /* LaunchScreen.storyboard */; };
-		BF7279AD1C20518E00CB463E /* VJPageControl in Resources */ = {isa = PBXBuildFile; fileRef = BF7279AC1C20518E00CB463E /* VJPageControl */; };
+		BF7279C01C20560200CB463E /* VJBiggerPageControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7279BB1C20560200CB463E /* VJBiggerPageControlView.m */; };
+		BF7279C11C20560200CB463E /* VJOvalLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7279BD1C20560200CB463E /* VJOvalLayer.m */; };
+		BF7279C21C20560200CB463E /* VJUnselectedLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7279BF1C20560200CB463E /* VJUnselectedLineLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +29,12 @@
 		BF7279A11C20517100CB463E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF7279A41C20517100CB463E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF7279A61C20517100CB463E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF7279AC1C20518E00CB463E /* VJPageControl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = VJPageControl; sourceTree = "<group>"; };
+		BF7279BA1C20560200CB463E /* VJBiggerPageControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VJBiggerPageControlView.h; path = VJPageControl/VJBiggerPageControlView.h; sourceTree = "<group>"; };
+		BF7279BB1C20560200CB463E /* VJBiggerPageControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VJBiggerPageControlView.m; path = VJPageControl/VJBiggerPageControlView.m; sourceTree = "<group>"; };
+		BF7279BC1C20560200CB463E /* VJOvalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VJOvalLayer.h; path = VJPageControl/VJOvalLayer.h; sourceTree = "<group>"; };
+		BF7279BD1C20560200CB463E /* VJOvalLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VJOvalLayer.m; path = VJPageControl/VJOvalLayer.m; sourceTree = "<group>"; };
+		BF7279BE1C20560200CB463E /* VJUnselectedLineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VJUnselectedLineLayer.h; path = VJPageControl/VJUnselectedLineLayer.h; sourceTree = "<group>"; };
+		BF7279BF1C20560200CB463E /* VJUnselectedLineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VJUnselectedLineLayer.m; path = VJPageControl/VJUnselectedLineLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +67,7 @@
 		BF7279941C20517100CB463E /* VJOvalPageSwitch */ = {
 			isa = PBXGroup;
 			children = (
-				BF7279AC1C20518E00CB463E /* VJPageControl */,
+				BF7279C31C20561200CB463E /* PageControl */,
 				BF7279981C20517100CB463E /* AppDelegate.h */,
 				BF7279991C20517100CB463E /* AppDelegate.m */,
 				BF72799B1C20517100CB463E /* ViewController.h */,
@@ -80,6 +87,19 @@
 				BF7279961C20517100CB463E /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF7279C31C20561200CB463E /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				BF7279BA1C20560200CB463E /* VJBiggerPageControlView.h */,
+				BF7279BB1C20560200CB463E /* VJBiggerPageControlView.m */,
+				BF7279BC1C20560200CB463E /* VJOvalLayer.h */,
+				BF7279BD1C20560200CB463E /* VJOvalLayer.m */,
+				BF7279BE1C20560200CB463E /* VJUnselectedLineLayer.h */,
+				BF7279BF1C20560200CB463E /* VJUnselectedLineLayer.m */,
+			);
+			name = PageControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +162,6 @@
 				BF7279A51C20517100CB463E /* LaunchScreen.storyboard in Resources */,
 				BF7279A21C20517100CB463E /* Assets.xcassets in Resources */,
 				BF7279A01C20517100CB463E /* Main.storyboard in Resources */,
-				BF7279AD1C20518E00CB463E /* VJPageControl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +173,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF72799D1C20517100CB463E /* ViewController.m in Sources */,
+				BF7279C21C20560200CB463E /* VJUnselectedLineLayer.m in Sources */,
+				BF7279C11C20560200CB463E /* VJOvalLayer.m in Sources */,
+				BF7279C01C20560200CB463E /* VJBiggerPageControlView.m in Sources */,
 				BF72799A1C20517100CB463E /* AppDelegate.m in Sources */,
 				BF7279971C20517100CB463E /* main.m in Sources */,
 			);

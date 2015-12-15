@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/Vincent7/VJOvalPageSwitch.git', :tag => s.version.to_s }
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
-  s.source_files = 'VJPageControl/*.{h,m}'
+  s.source_files = 'VJOvalPageSwitch/VJPageControl/*.{h,m}'
   s.requires_arc = true
 end
