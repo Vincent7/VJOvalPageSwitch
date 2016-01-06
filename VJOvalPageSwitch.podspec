@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'VJOvalPageSwitch'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.license = 'MIT'
   s.summary = 'An customizable page control on iOS.'
   s.homepage = 'https://github.com/Vincent7/VJOvalPageSwitch'
