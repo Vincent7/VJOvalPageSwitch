@@ -18,8 +18,8 @@
     
     self.pageControl.selectedPageIndex = 0;
     self.pageControl.pageNumber = 6;
-    self.pageControl.pageControlMarginX = self.view.bounds.size.width/3;
-    self.pageControl.currentOvalSize = CGSizeMake(10, 10);
+    self.pageControl.pageControlMarginX = self.view.bounds.size.width/8;
+    self.pageControl.currentOvalSize = CGSizeMake(20, 20);
     [self.pageControl configPageOvalLayer];
     [self.pageControl animateToIndex:0];
 }
@@ -35,7 +35,7 @@
 }
 
 - (IBAction)btnTapped:(id)sender {
-    NSInteger nextPage = self.pageControl.selectedPageIndex + 1;
+    NSInteger nextPage = self.pageControl.selectedPageIndex + 2;
     if (nextPage >= self.pageControl.pageNumber) {
         nextPage = 0;
     }

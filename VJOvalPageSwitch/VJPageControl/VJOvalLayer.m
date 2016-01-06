@@ -8,7 +8,9 @@
 
 #import "VJOvalLayer.h"
 
-@implementation VJOvalLayer
+@implementation VJOvalLayer{
+
+}
 
 #pragma mark -- Initialize
 -(id)init{
@@ -30,7 +32,9 @@
 }
 +(BOOL)needsDisplayForKey:(NSString *)key{
     if ([key isEqual:@"sliderProgress"]) {
-        return  YES;
+//        return  YES;
+    }else if ([key isEqualToString:@"currentRect"]){
+        return YES;
     }
     return [super needsDisplayForKey:key];
 }
@@ -42,10 +46,12 @@
     CGPoint rectCenter = CGPointMake(self.currentRect.origin.x + self.currentRect.size.width/2 ,
                                      self.currentRect.origin.y + self.currentRect.size.height/2);
     
-    CGPoint pointUp = CGPointMake(rectCenter.x, self.currentRect.origin.y);
-    CGPoint pointRight = CGPointMake(rectCenter.x + self.currentRect.size.width/2, rectCenter.y);
-    CGPoint pointDown = CGPointMake(rectCenter.x, rectCenter.y + self.currentRect.size.height/2);
-    CGPoint pointLeft = CGPointMake(self.currentRect.origin.x, rectCenter.y);
+    CGFloat extra = 0;//(self.currentRect.size.width * 2 / 5) * _sliderProgress;
+    
+    CGPoint pointUp = CGPointMake(rectCenter.x, self.currentRect.origin.y + extra);
+    CGPoint pointRight = CGPointMake(rectCenter.x + self.currentRect.size.width/2 + extra * 2, rectCenter.y);
+    CGPoint pointDown = CGPointMake(rectCenter.x, rectCenter.y + self.currentRect.size.height/2 - extra);
+    CGPoint pointLeft = CGPointMake(self.currentRect.origin.x - extra * 2, rectCenter.y);
     
     CGPoint c1 = CGPointMake(pointUp.x + offset, pointUp.y);
     CGPoint c2 = CGPointMake(pointRight.x, pointRight.y - offset);
@@ -74,8 +80,21 @@
     CGContextFillPath(ctx);
 }
 
-- (void)moveToRect:(CGRect)rect{
+- (void)moveToRect:(CGRect)rect fromRect:(CGRect)fromRect{
+    CASpringAnimation *anim = [CASpringAnimation animationWithKeyPath:@"currentRect"];
+    anim.damping = 20;
+    anim.initialVelocity = 20;
+    anim.fromValue = [NSValue valueWithCGRect:fromRect];
+    anim.duration = anim.settlingDuration;
+    
+    anim.fillMode = kCAFillModeForwards;
+    anim.removedOnCompletion = NO;
+    [self addAnimation:anim forKey:@"restoreAnimation"];
+    
     self.currentRect = rect;
+    
     [self setNeedsDisplay];
 }
+
+
 @end

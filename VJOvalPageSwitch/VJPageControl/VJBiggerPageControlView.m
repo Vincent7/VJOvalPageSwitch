@@ -18,8 +18,9 @@
         _currentPageOvalLayer = [VJOvalLayer layer];
         _currentPageOvalLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         _currentPageOvalLayer.circleColor = [UIColor colorWithWhite:1 alpha:.5];
-        
+        [_currentPageOvalLayer setContentsScale:[[UIScreen mainScreen] scale]];
     }
+//    [_currentPageOvalLayer restoreAnimation];
     return _currentPageOvalLayer;
 }
 
@@ -32,7 +33,7 @@
         _unselectedLineLayer.circleBorderWidth = 1;
         _unselectedLineLayer.pageNumber = self.pageNumber;
         _unselectedLineLayer.unselectedOvalLayerSize = self.currentOvalSize;
-        
+        [_unselectedLineLayer setContentsScale:[[UIScreen mainScreen] scale]];
     }
     return _unselectedLineLayer;
 }
@@ -57,20 +58,27 @@
                                                       self.bounds.size.height);
     [self.layer addSublayer:self.unselectedLineLayer];
     [self.layer insertSublayer:self.currentPageOvalLayer above:self.unselectedLineLayer];
+
     [self.unselectedLineLayer setNeedsDisplay];
 }
-- (void)moveToPageIndex:(NSInteger)pageIndex{
+- (void)moveToPageIndex:(NSInteger)pageIndex fromIndex:(NSInteger)fromIndex{
     
     CGFloat unitDistance = (self.bounds.size.width - self.pageControlMarginX * 2)/self.pageNumber;
-    
+//    [self.currentPageOvalLayer performSelector:@selector(restoreAnimation) withObject:nil afterDelay:0.0];
     [self.currentPageOvalLayer moveToRect:CGRectMake(self.pageControlMarginX + pageIndex * unitDistance + (unitDistance - self.currentOvalSize.width)/2,
                                                      (self.bounds.size.height - self.currentOvalSize.height)/2,
                                                      self.currentOvalSize.width,
+                                                     self.currentOvalSize.height)
+                                 fromRect:CGRectMake(self.pageControlMarginX + fromIndex * unitDistance + (unitDistance - self.currentOvalSize.width)/2,
+                                                     (self.bounds.size.height - self.currentOvalSize.height)/2,
+                                                     self.currentOvalSize.width,
                                                      self.currentOvalSize.height)];
+    
 }
 -(void)animateToIndex:(NSInteger)index{
+    NSInteger tempLastIndex = _selectedPageIndex;
     self.selectedPageIndex = index;
-    [self moveToPageIndex:index];
+    [self moveToPageIndex:index fromIndex:tempLastIndex];
 }
 
 -(void)tapAction:(UITapGestureRecognizer *)gesture{
