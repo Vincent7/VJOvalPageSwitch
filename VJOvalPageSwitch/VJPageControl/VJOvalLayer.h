@@ -23,6 +23,7 @@
 @property(nonatomic, strong)UIColor *circleColor;
 
 @property(nonatomic, assign) CGFloat sliderProgress;
+@property(nonatomic, strong) CABasicAnimation *animationOfMoving;
 - (void)moveToRect:(CGRect)rect fromRect:(CGRect)fromRect;
 //- (void)restoreAnimation;
 @end

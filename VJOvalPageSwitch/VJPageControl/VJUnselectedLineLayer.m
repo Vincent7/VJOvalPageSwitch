@@ -31,8 +31,8 @@
 - (void)drawInContext:(CGContextRef)ctx{
     
     CGFloat widthPerPage = self.currentRect.size.width/self.pageNumber;
-    CGFloat offset = self.unselectedOvalLayerSize.width / 3.6;
-    
+//    CGFloat offset = self.unselectedOvalLayerSize.width / 3.6;
+//    UIGraphicsBeginImageContextWithOptions
     for (NSInteger pageIndex = 0; pageIndex < self.pageNumber; pageIndex ++) {
         CGFloat ovalOriginX = widthPerPage * pageIndex + self.currentRect.origin.x + (widthPerPage-self.unselectedOvalLayerSize.width)/2;
         CGFloat ovalOriginY = self.currentRect.origin.y ;
@@ -79,5 +79,6 @@
     CGContextStrokePath(ctx);
     CGContextSetFillColorWithColor(ctx, self.circleColor.CGColor);
     CGContextFillPath(ctx);
+    
 }
 @end

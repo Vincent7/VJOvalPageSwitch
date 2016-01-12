@@ -11,7 +11,7 @@
 @implementation VJOvalLayer{
 
 }
-
+@dynamic currentRect;
 #pragma mark -- Initialize
 -(id)init{
     self = [super init];
@@ -39,19 +39,39 @@
     return [super needsDisplayForKey:key];
 }
 
-- (void)drawInContext:(CGContextRef)ctx{
+- (id<CAAction>)actionForKey:(NSString *)key
+{
+    if ([key isEqualToString:@"currentRect"] && self.animationOfMoving)
+    {
+        CABasicAnimation *anim = self.animationOfMoving;
+        anim.fromValue = [self.presentationLayer valueForKey:key];
+
+        anim.fillMode = kCAFillModeForwards;
+        anim.removedOnCompletion = NO;
+        return anim;
+    }
+    return [super actionForKey:key];
+}
+//- (void)drawInContext:(CGContextRef)ctx{
+//  
+//}
+- (void)display{
     
-    CGFloat offset = self.currentRect.size.width / 3.6;
+    CGRect currentRect = [self.presentationLayer currentRect];
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    CGPoint rectCenter = CGPointMake(self.currentRect.origin.x + self.currentRect.size.width/2 ,
-                                     self.currentRect.origin.y + self.currentRect.size.height/2);
+    CGFloat offset = currentRect.size.width / 3.6;
+    
+    CGPoint rectCenter = CGPointMake(currentRect.origin.x + currentRect.size.width/2 ,
+                                     currentRect.origin.y + currentRect.size.height/2);
     
     CGFloat extra = 0;//(self.currentRect.size.width * 2 / 5) * _sliderProgress;
     
-    CGPoint pointUp = CGPointMake(rectCenter.x, self.currentRect.origin.y + extra);
-    CGPoint pointRight = CGPointMake(rectCenter.x + self.currentRect.size.width/2 + extra * 2, rectCenter.y);
-    CGPoint pointDown = CGPointMake(rectCenter.x, rectCenter.y + self.currentRect.size.height/2 - extra);
-    CGPoint pointLeft = CGPointMake(self.currentRect.origin.x - extra * 2, rectCenter.y);
+    CGPoint pointUp = CGPointMake(rectCenter.x, currentRect.origin.y + extra);
+    CGPoint pointRight = CGPointMake(rectCenter.x + currentRect.size.width/2 + extra * 2, rectCenter.y);
+    CGPoint pointDown = CGPointMake(rectCenter.x, rectCenter.y + currentRect.size.height/2 - extra);
+    CGPoint pointLeft = CGPointMake(currentRect.origin.x - extra * 2, rectCenter.y);
     
     CGPoint c1 = CGPointMake(pointUp.x + offset, pointUp.y);
     CGPoint c2 = CGPointMake(pointRight.x, pointRight.y - offset);
@@ -78,22 +98,24 @@
     CGContextAddPath(ctx, ovalPath.CGPath);
     CGContextSetFillColorWithColor(ctx, self.circleColor.CGColor);
     CGContextFillPath(ctx);
-}
-
-- (void)moveToRect:(CGRect)rect fromRect:(CGRect)fromRect{
-    CASpringAnimation *anim = [CASpringAnimation animationWithKeyPath:@"currentRect"];
-    anim.damping = 20;
-    anim.initialVelocity = 20;
-    anim.fromValue = [NSValue valueWithCGRect:fromRect];
-    anim.duration = anim.settlingDuration;
     
-    anim.fillMode = kCAFillModeForwards;
-    anim.removedOnCompletion = NO;
-    [self addAnimation:anim forKey:@"restoreAnimation"];
+    self.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
+    UIGraphicsEndImageContext();
+}
+- (void)moveToRect:(CGRect)rect fromRect:(CGRect)fromRect{
+//    CASpringAnimation *anim = [CASpringAnimation animationWithKeyPath:@"currentRect"];
+//    anim.damping = 20;
+//    anim.initialVelocity = 20;
+//    anim.fromValue = [NSValue valueWithCGRect:fromRect];
+//    anim.duration = anim.settlingDuration;
+//    
+//    anim.fillMode = kCAFillModeForwards;
+//    anim.removedOnCompletion = NO;
+//    [self addAnimation:anim forKey:@"restoreAnimation"];
     
     self.currentRect = rect;
     
-    [self setNeedsDisplay];
+//    [self setNeedsDisplay];
 }
 
 
