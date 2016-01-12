@@ -46,17 +46,17 @@
         CABasicAnimation *anim = self.animationOfMoving;
         anim.fromValue = [self.presentationLayer valueForKey:key];
 
-        anim.fillMode = kCAFillModeForwards;
-        anim.removedOnCompletion = NO;
+//        anim.fillMode = kCAFillModeForwards;
+//        anim.removedOnCompletion = YES;
         return anim;
     }
     return [super actionForKey:key];
 }
-//- (void)drawInContext:(CGContextRef)ctx{
-//  
-//}
+- (void)drawInContext:(CGContextRef)ctx{
+//    NSLog(@"drawInContext");
+}
 - (void)display{
-    
+//    NSLog(@"drawInContext");
     CGRect currentRect = [self.presentationLayer currentRect];
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
