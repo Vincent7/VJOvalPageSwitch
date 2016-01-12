@@ -53,14 +53,7 @@
     return [super actionForKey:key];
 }
 - (void)drawInContext:(CGContextRef)ctx{
-//    NSLog(@"drawInContext");
-}
-- (void)display{
-    NSLog(@"%@",[NSValue valueWithCGRect: [self.presentationLayer currentRect]]);
     CGRect currentRect = [self.presentationLayer currentRect];
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
     CGFloat offset = currentRect.size.width / 3.6;
     
     CGPoint rectCenter = CGPointMake(currentRect.origin.x + currentRect.size.width/2 ,
@@ -98,6 +91,16 @@
     CGContextAddPath(ctx, ovalPath.CGPath);
     CGContextSetFillColorWithColor(ctx, self.circleColor.CGColor);
     CGContextFillPath(ctx);
+}
+- (void)display{
+    NSLog(@"%@",[NSValue valueWithCGRect: [self.presentationLayer currentRect]]);
+    
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    [self drawInContext:ctx];
+//    [self drawInContext:ctx];
     
     self.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
     UIGraphicsEndImageContext();
@@ -115,7 +118,7 @@
     
     self.currentRect = rect;
     
-//    [self setNeedsDisplay];
+    [self setNeedsDisplay];
 }
 
 

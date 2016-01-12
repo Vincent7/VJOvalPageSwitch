@@ -18,11 +18,21 @@
         _currentPageOvalLayer = [VJOvalLayer layer];
         _currentPageOvalLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         _currentPageOvalLayer.circleColor = [UIColor colorWithWhite:1 alpha:.5];
-        CASpringAnimation *anim = [CASpringAnimation animation];
-        anim.damping = 40;
-        anim.initialVelocity = 10;
-        anim.duration = anim.settlingDuration;
-        _currentPageOvalLayer.animationOfMoving = anim;
+        
+        float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+        if (systemVersion >= 9.0){
+            //某个仅支持5.0以上版本的方法
+            CASpringAnimation *anim = [CASpringAnimation animation];
+            anim.damping = 40;
+            anim.initialVelocity = 10;
+            anim.duration = anim.settlingDuration;
+            _currentPageOvalLayer.animationOfMoving = anim;
+        }else{
+            CABasicAnimation *anim = [CABasicAnimation animation];
+            anim.duration = .3;
+            _currentPageOvalLayer.animationOfMoving = anim;
+        }
+        
 //        [_currentPageOvalLayer setContentsScale:[[UIScreen mainScreen] scale]];
     }
 //    [_currentPageOvalLayer restoreAnimation];
