@@ -23,7 +23,7 @@
         anim.initialVelocity = 10;
         anim.duration = anim.settlingDuration;
         _currentPageOvalLayer.animationOfMoving = anim;
-        [_currentPageOvalLayer setContentsScale:[[UIScreen mainScreen] scale]];
+//        [_currentPageOvalLayer setContentsScale:[[UIScreen mainScreen] scale]];
     }
 //    [_currentPageOvalLayer restoreAnimation];
     return _currentPageOvalLayer;
